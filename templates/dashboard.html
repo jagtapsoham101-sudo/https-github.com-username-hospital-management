@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}Overview · CarePoint{% endblock %}
+{% block heading %}Hospital overview{% endblock %}
+{% block content %}
+<section class="welcome"><div><p class="eyebrow light">YOUR DAILY SNAPSHOT</p><h2>Care starts with a clear view.</h2><p>Monitor patients, appointments, and inpatient care in one place.</p></div><div class="welcome-mark">✚</div></section>
+<section class="stats">
+  <article class="stat-card"><span class="stat-icon blue">♙</span><span class="stat-label">Total patients</span><strong>{{ stats.patients }}</strong><small>Registered in database</small></article>
+  <article class="stat-card"><span class="stat-icon violet">✚</span><span class="stat-label">Active doctors</span><strong>{{ stats.doctors }}</strong><small>Available staff</small></article>
+  <article class="stat-card"><span class="stat-icon orange">▣</span><span class="stat-label">Upcoming visits</span><strong>{{ stats.appointments }}</strong><small>Scheduled appointments</small></article>
+  <article class="stat-card"><span class="stat-icon green">▤</span><span class="stat-label">Inpatients</span><strong>{{ stats.inpatients }}</strong><small>Currently admitted</small></article>
+</section>
+<section class="grid-two">
+  <article class="panel"><div class="panel-head"><div><p class="eyebrow">SCHEDULE</p><h3>Upcoming appointments</h3></div><a class="text-link" href="{{ url_for('appointments') }}">View all →</a></div>
+    {% if appointments %}<div class="table-wrap"><table><thead><tr><th>Patient</th><th>Doctor</th><th>Date & time</th><th>Status</th></tr></thead><tbody>{% for a in appointments %}<tr><td class="strong">{{ a.patient }}</td><td>{{ a.doctor }}<small class="cell-sub">{{ a.department_name }}</small></td><td>{{ a.appointment_at.strftime('%b %d, %Y %H:%M') }}</td><td><span class="pill {{ a.status }}">{{ a.status|replace('_',' ') }}</span></td></tr>{% endfor %}</tbody></table></div>{% else %}<p class="empty">No upcoming appointments.</p>{% endif %}
+  </article>
+  <article class="panel"><div class="panel-head"><div><p class="eyebrow">INPATIENT CARE</p><h3>Current admissions</h3></div></div>
+    {% if inpatients %}<div class="table-wrap"><table><thead><tr><th>Patient</th><th>Room</th><th>Doctor</th></tr></thead><tbody>{% for p in inpatients %}<tr><td class="strong">{{ p.patient }}</td><td><span class="room">{{ p.room_number }}</span></td><td>{{ p.doctor }}<small class="cell-sub">Since {{ p.admitted_at.strftime('%b %d') }}</small></td></tr>{% endfor %}</tbody></table></div>{% else %}<p class="empty">No active admissions.</p>{% endif %}
+  </article>
+</section>
+{% endblock %}

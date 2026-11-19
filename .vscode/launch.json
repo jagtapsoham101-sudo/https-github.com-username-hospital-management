@@ -1,0 +1,14 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Flask: Hospital Management",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "flask",
+      "env": { "FLASK_APP": "app.py", "FLASK_DEBUG": "true" },
+      "args": ["run", "--host=127.0.0.1", "--port=5000"],
+      "jinja": true
+    }
+  ]
+}

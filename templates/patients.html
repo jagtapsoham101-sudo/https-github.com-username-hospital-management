@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title %}Patients · CarePoint{% endblock %}
+{% block heading %}Patients{% endblock %}
+{% block content %}
+<section class="panel patient-panel"><div class="panel-head"><div><p class="eyebrow">PATIENT DIRECTORY</p><h3>Patient records</h3></div><form class="search" method="get"><input name="q" value="{{ query }}" placeholder="Search name or email"><button class="button secondary">Search</button></form></div>
+<details class="add-form"><summary class="button">＋ Add patient</summary><form method="post" class="form-grid"><label>First name<input name="first_name" required maxlength="80"></label><label>Last name<input name="last_name" required maxlength="80"></label><label>Date of birth<input name="date_of_birth" type="date" required></label><label>Phone<input name="phone" type="tel" maxlength="30"></label><label class="wide">Email<input name="email" type="email" maxlength="254"></label><button class="button" type="submit">Save patient</button></form></details>
+<div class="table-wrap"><table><thead><tr><th>Name</th><th>Date of birth</th><th>Phone</th><th>Email</th></tr></thead><tbody>{% for p in patients %}<tr><td class="strong">{{ p.first_name }} {{ p.last_name }}</td><td>{{ p.date_of_birth }}</td><td>{{ p.phone or '—' }}</td><td>{{ p.email or '—' }}</td></tr>{% else %}<tr><td colspan="4" class="empty">No patients found.</td></tr>{% endfor %}</tbody></table></div><p class="hint">Showing up to 200 patient records.</p>
+</section>
+{% endblock %}

@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Hospital Management{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="{{ url_for('dashboard') }}"><span class="brand-icon">✚</span> CarePoint</a>
+    <p class="nav-label">WORKSPACE</p>
+    <nav>
+      <a href="{{ url_for('dashboard') }}">▦ &nbsp; Overview</a>
+      <a href="{{ url_for('patients') }}">♙ &nbsp; Patients</a>
+      <a href="{{ url_for('appointments') }}">▣ &nbsp; Appointments</a>
+    </nav>
+    <div class="sidebar-bottom">Hospital Management<br><small>PostgreSQL connected app</small></div>
+  </aside>
+  <main class="main">
+    <header class="topbar"><div><span class="eyebrow">CAREPOINT / HOSPITAL</span><h1>{% block heading %}Overview{% endblock %}</h1></div><span class="today">{{ today or '' }}</span></header>
+    {% with messages = get_flashed_messages(with_categories=true) %}{% if messages %}<div class="messages">{% for category, message in messages %}<div class="flash {{ category }}">{{ message }}</div>{% endfor %}</div>{% endif %}{% endwith %}
+    {% block content %}{% endblock %}
+    <footer>Demo interface · Protect patient information and use appropriate access controls in production.</footer>
+  </main>
+</body>
+</html>
